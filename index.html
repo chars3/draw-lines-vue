@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <div class="cont" @click="contar">{{valor}}
+            <div  v-for="(div, index) in divs" :key="index" 
+            class="nova-div"
+            :style="{ top: div.y + 'px', left: div.x + 'px' }">a</div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+        const { createApp, ref } = Vue;
+        createApp({
+            setup() {
+                const divs = ref([]);
+                const valor = ref(0); 
+
+                const contar = (event) => {
+                    const x = event.offsetX - 5; 
+                    const y = event.offsetY - 5; 
+                    divs.value.push({ x, y }); 
+                    console.log(divs.value); 
+                };
+                return {
+                    valor,
+                    contar,
+                    divs
+                };
+            }
+        }).mount('#app');
+
+    </script>
+</body>
+
+<style>
+    #app {
+        width: 600px;
+        height: 600px;
+        background-color: #efefef;
+        position: relative; 
+    }
+    .nova-div {
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        background-color: green;
+    }
+
+    .cont {
+        width: 100%;
+        height: 100%;
+    }
+</style>
+</body>
+</html>
